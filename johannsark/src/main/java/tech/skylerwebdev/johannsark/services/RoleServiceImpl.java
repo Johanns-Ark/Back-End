@@ -79,7 +79,7 @@ public class RoleServiceImpl implements RoleService
         if (role.getUserroles()
                 .size() > 0)
         {
-            throw new ResourceFoundException("User Roles are not updated through Role. See endpoint POST: users/user/{userid}/role/{roleid}");
+            throw new ResourceFoundException("User Roles are not updated through Role. See endpoint POST: users/user/{uuid}/role/{roleid}");
         }
 
         Role newRole = findRoleById(id); // see if id exists
@@ -99,7 +99,7 @@ public class RoleServiceImpl implements RoleService
         if (role.getUserroles()
                 .size() > 0)
         {
-            throw new ResourceFoundException("User Roles are not updated through Role. See endpoint POST: users/user/{userid}/role/{roleid}");
+            throw new ResourceFoundException("User Roles are not updated through Role. See endpoint POST: users/user/{uuid}/role/{roleid}");
         }
 
         return rolerepos.save(role);

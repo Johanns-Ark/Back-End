@@ -1,7 +1,7 @@
 package tech.skylerwebdev.johannsark.controllers;
 
 import tech.skylerwebdev.johannsark.logging.Loggable;
-import tech.skylerwebdev.johannsark.models.Useremail;
+import tech.skylerwebdev.johannsark.models.UserEmail;
 import tech.skylerwebdev.johannsark.services.UseremailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +33,7 @@ public class UseremailController
         logger.trace(request.getMethod()
                             .toUpperCase() + " " + request.getRequestURI() + " accessed");
 
-        List<Useremail> allUserEmails = useremailService.findAll();
+        List<UserEmail> allUserEmails = useremailService.findAll();
         return new ResponseEntity<>(allUserEmails,
                                     HttpStatus.OK);
     }
@@ -49,7 +49,7 @@ public class UseremailController
         logger.trace(request.getMethod()
                             .toUpperCase() + " " + request.getRequestURI() + " accessed");
 
-        Useremail ue = useremailService.findUseremailById(useremailId);
+        UserEmail ue = useremailService.findUseremailById(useremailId);
         return new ResponseEntity<>(ue,
                                     HttpStatus.OK);
     }
@@ -65,9 +65,9 @@ public class UseremailController
         logger.trace(request.getMethod()
                             .toUpperCase() + " " + request.getRequestURI() + " accessed");
 
-        List<Useremail> theUseremails = useremailService.findByUserName(userName,
+        List<UserEmail> theUserEmails = useremailService.findByUserName(userName,
                                                                         request.isUserInRole("ADMIN"));
-        return new ResponseEntity<>(theUseremails,
+        return new ResponseEntity<>(theUserEmails,
                                     HttpStatus.OK);
     }
 

@@ -9,22 +9,22 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface RoleRepository extends CrudRepository<Role, Long>
 {
-    @Query(value = "SELECT COUNT(*) as count FROM userroles WHERE userid = :userid AND roleid = :roleid",
+    @Query(value = "SELECT COUNT(*) as count FROM userroles WHERE uuid = :uuid AND roleid = :roleid",
            nativeQuery = true)
-    JustTheCount checkUserRolesCombo(long userid,
+    JustTheCount checkUserRolesCombo(long uuid,
                                      long roleid);
 
     @Transactional
     @Modifying
-    @Query(value = "DELETE FROM UserRoles WHERE userid = :userid AND roleid = :roleid")
-    void deleteUserRoles(long userid,
+    @Query(value = "DELETE FROM UserRoles WHERE uuid = :uuid AND roleid = :roleid")
+    void deleteUserRoles(long uuid,
                          long roleid);
 
     @Transactional
     @Modifying
-    @Query(value = "INSERT INTO UserRoles(userid, roleid) VALUES (:userid, :roleid)",
+    @Query(value = "INSERT INTO UserRoles(uuid, roleid) VALUES (:uuid, :roleid)",
            nativeQuery = true)
-    void insertUserRoles(long userid,
+    void insertUserRoles(long uuid,
                          long roleid);
 
     Role findByNameIgnoreCase(String name);

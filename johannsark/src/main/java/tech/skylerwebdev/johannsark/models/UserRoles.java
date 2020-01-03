@@ -10,12 +10,12 @@ import java.util.Objects;
 @Loggable
 @Entity
 @Table(name = "userroles",
-       uniqueConstraints = {@UniqueConstraint(columnNames = {"userid", "roleid"})})
+       uniqueConstraints = {@UniqueConstraint(columnNames = {"uuid", "roleid"})})
 public class UserRoles extends Auditable implements Serializable
 {
     @Id
     @ManyToOne
-    @JoinColumn(name = "userid")
+    @JoinColumn(name = "uuid")
     @JsonIgnoreProperties("userroles")
     private User user;
 
@@ -81,6 +81,6 @@ public class UserRoles extends Auditable implements Serializable
     @Override
     public String toString()
     {
-        return "UserRoles{" + "user=" + user.getUserid() + ", role=" + role.getRoleid() + '}';
+        return "UserRoles{" + "user=" + user.getUuid() + ", role=" + role.getRoleid() + '}';
     }
 }

@@ -6,7 +6,7 @@ import com.github.javafaker.service.RandomService;
 import tech.skylerwebdev.johannsark.models.Role;
 import tech.skylerwebdev.johannsark.models.User;
 import tech.skylerwebdev.johannsark.models.UserRoles;
-import tech.skylerwebdev.johannsark.models.Useremail;
+import tech.skylerwebdev.johannsark.models.UserEmail;
 import tech.skylerwebdev.johannsark.services.RoleService;
 import tech.skylerwebdev.johannsark.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,11 +51,11 @@ public class SeedData implements CommandLineRunner
                            "password",
                            "admin@lambdaschool.local",
                            admins);
-        u1.getUseremails()
-          .add(new Useremail(u1,
+        u1.getUserEmails()
+          .add(new UserEmail(u1,
                              "admin@email.local"));
-        u1.getUseremails()
-          .add(new Useremail(u1,
+        u1.getUserEmails()
+          .add(new UserEmail(u1,
                              "admin@mymail.local"));
 
         userService.save(u1);
@@ -70,14 +70,14 @@ public class SeedData implements CommandLineRunner
                            "1234567",
                            "cinnamon@lambdaschool.local",
                            datas);
-        u2.getUseremails()
-          .add(new Useremail(u2,
+        u2.getUserEmails()
+          .add(new UserEmail(u2,
                              "cinnamon@mymail.local"));
-        u2.getUseremails()
-          .add(new Useremail(u2,
+        u2.getUserEmails()
+          .add(new UserEmail(u2,
                              "hops@mymail.local"));
-        u2.getUseremails()
-          .add(new Useremail(u2,
+        u2.getUserEmails()
+          .add(new UserEmail(u2,
                              "bunny@email.local"));
         userService.save(u2);
 
@@ -89,8 +89,8 @@ public class SeedData implements CommandLineRunner
                            "ILuvM4th!",
                            "barnbarn@lambdaschool.local",
                            users);
-        u3.getUseremails()
-          .add(new Useremail(u3,
+        u3.getUserEmails()
+          .add(new UserEmail(u3,
                              "barnbarn@email.local"));
         userService.save(u3);
 
@@ -134,8 +134,8 @@ public class SeedData implements CommandLineRunner
                                 nameFaker.internet()
                                          .emailAddress(),
                                 users);
-            fakeUser.getUseremails()
-                    .add(new Useremail(fakeUser,
+            fakeUser.getUserEmails()
+                    .add(new UserEmail(fakeUser,
                                        fakeValuesService.bothify("????##@gmail.com")));
             userService.save(fakeUser);
         }

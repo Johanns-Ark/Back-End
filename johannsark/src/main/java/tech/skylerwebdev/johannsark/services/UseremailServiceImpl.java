@@ -2,7 +2,7 @@ package tech.skylerwebdev.johannsark.services;
 
 import tech.skylerwebdev.johannsark.exceptions.ResourceNotFoundException;
 import tech.skylerwebdev.johannsark.logging.Loggable;
-import tech.skylerwebdev.johannsark.models.Useremail;
+import tech.skylerwebdev.johannsark.models.UserEmail;
 import tech.skylerwebdev.johannsark.repository.UseremailRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -20,9 +20,9 @@ public class UseremailServiceImpl implements UseremailService
     private UseremailRepository useremailrepos;
 
     @Override
-    public List<Useremail> findAll()
+    public List<UserEmail> findAll()
     {
-        List<Useremail> list = new ArrayList<>();
+        List<UserEmail> list = new ArrayList<>();
         useremailrepos.findAll()
                       .iterator()
                       .forEachRemaining(list::add);
@@ -30,14 +30,14 @@ public class UseremailServiceImpl implements UseremailService
     }
 
     @Override
-    public Useremail findUseremailById(long id)
+    public UserEmail findUseremailById(long id)
     {
         return useremailrepos.findById(id)
                              .orElseThrow(() -> new ResourceNotFoundException("Useremail with id " + id + " Not Found!"));
     }
 
     @Override
-    public List<Useremail> findByUserName(String username,
+    public List<UserEmail> findByUserName(String username,
                                           boolean isAdmin)
     {
         Authentication authentication = SecurityContextHolder.getContext()
@@ -79,7 +79,7 @@ public class UseremailServiceImpl implements UseremailService
     }
 
     @Override
-    public Useremail update(long useremailid,
+    public UserEmail update(long useremailid,
                             String emailaddress,
                             boolean isAdmin)
     {
@@ -94,7 +94,7 @@ public class UseremailServiceImpl implements UseremailService
                               .getUsername()
                               .equalsIgnoreCase(authentication.getName()) || isAdmin)
             {
-                Useremail useremail = findUseremailById(useremailid);
+                UserEmail useremail = findUseremailById(useremailid);
                 useremail.setUseremail(emailaddress.toLowerCase());
                 return useremailrepos.save(useremail);
             } else

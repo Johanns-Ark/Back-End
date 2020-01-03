@@ -21,7 +21,7 @@ public class User extends Auditable
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long userid;
+    private long uuid;
 
     @Column(nullable = false,
             unique = true)
@@ -45,7 +45,7 @@ public class User extends Auditable
                cascade = CascadeType.ALL,
                orphanRemoval = true)
     @JsonIgnoreProperties("user")
-    private List<Useremail> useremails = new ArrayList<>();
+    private List<UserEmail> userEmails = new ArrayList<>();
 
     public User()
     {
@@ -66,14 +66,14 @@ public class User extends Auditable
         this.userroles = userRoles;
     }
 
-    public long getUserid()
+    public long getUuid()
     {
-        return userid;
+        return uuid;
     }
 
-    public void setUserid(long userid)
+    public void setUuid(long uuid)
     {
-        this.userid = userid;
+        this.uuid = uuid;
     }
 
     public String getUsername()
@@ -134,14 +134,14 @@ public class User extends Auditable
         this.userroles = userroles;
     }
 
-    public List<Useremail> getUseremails()
+    public List<UserEmail> getUserEmails()
     {
-        return useremails;
+        return userEmails;
     }
 
-    public void setUseremails(List<Useremail> useremails)
+    public void setUserEmails(List<UserEmail> userEmails)
     {
-        this.useremails = useremails;
+        this.userEmails = userEmails;
     }
 
     @JsonIgnore
@@ -163,6 +163,6 @@ public class User extends Auditable
     @Override
     public String toString()
     {
-        return "User{" + "userid=" + userid + ", username='" + username + '\'' + ", password='" + password + '\'' + ", primaryemail='" + primaryemail + '\'' + '}';
+        return "User{" + "uuid=" + uuid + ", username='" + username + '\'' + ", password='" + password + '\'' + ", primaryemail='" + primaryemail + '\'' + '}';
     }
 }

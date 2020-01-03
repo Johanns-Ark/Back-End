@@ -210,8 +210,8 @@ public class UserController
         // set the location header for the newly created resource
         HttpHeaders responseHeaders = new HttpHeaders();
         URI newUserURI = ServletUriComponentsBuilder.fromCurrentRequest()
-                                                    .path("/{userid}")
-                                                    .buildAndExpand(newuser.getUserid())
+                                                    .path("/{uuid}")
+                                                    .buildAndExpand(newuser.getUuid())
                                                     .toUri();
         responseHeaders.setLocation(newUserURI);
 
@@ -223,7 +223,7 @@ public class UserController
 
     // http://localhost:2019/users/user/7
 //        {
-//            "userid": 7,
+//            "uuid": 7,
 //                "username": "cinnamon",
 //                "primaryemail": "cinnamon@lambdaschool.home",
 //                "useremails": [
@@ -271,17 +271,17 @@ public class UserController
 
     // http://localhost:2019/users/user/15/role/2
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @DeleteMapping("/user/{userid}/role/{roleid}")
+    @DeleteMapping("/user/{uuid}/role/{roleid}")
     public ResponseEntity<?> deleteUserRoleByIds(HttpServletRequest request,
                                                  @PathVariable
-                                                         long userid,
+                                                         long uuid,
                                                  @PathVariable
                                                          long roleid)
     {
         logger.trace(request.getMethod()
                             .toUpperCase() + " " + request.getRequestURI() + " accessed");
 
-        userService.deleteUserRole(userid,
+        userService.deleteUserRole(uuid,
                                    roleid);
 
         return new ResponseEntity<>(HttpStatus.OK);
@@ -290,17 +290,17 @@ public class UserController
 
     // http://localhost:2019/users/user/15/role/2
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @PostMapping("/user/{userid}/role/{roleid}")
+    @PostMapping("/user/{uuid}/role/{roleid}")
     public ResponseEntity<?> postUserRoleByIds(HttpServletRequest request,
                                                @PathVariable
-                                                       long userid,
+                                                       long uuid,
                                                @PathVariable
                                                        long roleid)
     {
         logger.trace(request.getMethod()
                             .toUpperCase() + " " + request.getRequestURI() + " accessed");
 
-        userService.addUserRole(userid,
+        userService.addUserRole(uuid,
                                 roleid);
 
         return new ResponseEntity<>(HttpStatus.CREATED);

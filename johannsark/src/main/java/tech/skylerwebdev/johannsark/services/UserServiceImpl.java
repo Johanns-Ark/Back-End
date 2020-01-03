@@ -6,7 +6,7 @@ import tech.skylerwebdev.johannsark.logging.Loggable;
 import tech.skylerwebdev.johannsark.models.Role;
 import tech.skylerwebdev.johannsark.models.User;
 import tech.skylerwebdev.johannsark.models.UserRoles;
-import tech.skylerwebdev.johannsark.models.Useremail;
+import tech.skylerwebdev.johannsark.models.UserEmail;
 import tech.skylerwebdev.johannsark.repository.RoleRepository;
 import tech.skylerwebdev.johannsark.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,10 +100,10 @@ public class UserServiceImpl implements UserService
         }
         newUser.setUserroles(newRoles);
 
-        for (Useremail ue : user.getUseremails())
+        for (UserEmail ue : user.getUserEmails())
         {
-            newUser.getUseremails()
-                   .add(new Useremail(newUser,
+            newUser.getUserEmails()
+                   .add(new UserEmail(newUser,
                                       ue.getUseremail()));
         }
 
@@ -121,7 +121,7 @@ public class UserServiceImpl implements UserService
 
         User authenticatedUser = userrepos.findByUsername(authentication.getName());
 
-        if (id == authenticatedUser.getUserid() || isAdmin)
+        if (id == authenticatedUser.getUuid() || isAdmin)
         {
             User currentUser = findUserById(id);
 
@@ -143,16 +143,16 @@ public class UserServiceImpl implements UserService
             if (user.getUserroles()
                     .size() > 0)
             {
-                throw new ResourceFoundException("User Roles are not updated through User. See endpoint POST: users/user/{userid}/role/{roleid}");
+                throw new ResourceFoundException("User Roles are not updated through User. See endpoint POST: users/user/{uuid}/role/{roleid}");
             }
 
-            if (user.getUseremails()
+            if (user.getUserEmails()
                     .size() > 0)
             {
-                for (Useremail ue : user.getUseremails())
+                for (UserEmail ue : user.getUserEmails())
                 {
-                    currentUser.getUseremails()
-                               .add(new Useremail(currentUser,
+                    currentUser.getUserEmails()
+                               .add(new UserEmail(currentUser,
                                                   ue.getUseremail()));
                 }
             }
@@ -166,19 +166,19 @@ public class UserServiceImpl implements UserService
 
     @Transactional
     @Override
-    public void deleteUserRole(long userid,
+    public void deleteUserRole(long uuid,
                                long roleid)
     {
-        userrepos.findById(userid)
-                 .orElseThrow(() -> new ResourceNotFoundException("User id " + userid + " not found!"));
+        userrepos.findById(uuid)
+                 .orElseThrow(() -> new ResourceNotFoundException("User id " + uuid + " not found!"));
         rolerepos.findById(roleid)
                  .orElseThrow(() -> new ResourceNotFoundException("Role id " + roleid + " not found!"));
 
-        if (rolerepos.checkUserRolesCombo(userid,
+        if (rolerepos.checkUserRolesCombo(uuid,
                                           roleid)
                      .getCount() > 0)
         {
-            rolerepos.deleteUserRoles(userid,
+            rolerepos.deleteUserRoles(uuid,
                                       roleid);
         } else
         {
@@ -188,19 +188,19 @@ public class UserServiceImpl implements UserService
 
     @Transactional
     @Override
-    public void addUserRole(long userid,
+    public void addUserRole(long uuid,
                             long roleid)
     {
-        userrepos.findById(userid)
-                 .orElseThrow(() -> new ResourceNotFoundException("User id " + userid + " not found!"));
+        userrepos.findById(uuid)
+                 .orElseThrow(() -> new ResourceNotFoundException("User id " + uuid + " not found!"));
         rolerepos.findById(roleid)
                  .orElseThrow(() -> new ResourceNotFoundException("Role id " + roleid + " not found!"));
 
-        if (rolerepos.checkUserRolesCombo(userid,
+        if (rolerepos.checkUserRolesCombo(uuid,
                                           roleid)
                      .getCount() <= 0)
         {
-            rolerepos.insertUserRoles(userid,
+            rolerepos.insertUserRoles(uuid,
                                       roleid);
         } else
         {

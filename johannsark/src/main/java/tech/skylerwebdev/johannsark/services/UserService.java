@@ -25,9 +25,9 @@ public interface UserService
                 long id,
                 boolean isAdmin);
 
-    void deleteUserRole(long userid,
+    void deleteUserRole(long uuid,
                         long roleid);
 
-    void addUserRole(long userid,
+    void addUserRole(long uuid,
                      long roleid);
 }

@@ -9,8 +9,8 @@ import javax.validation.constraints.Email;
 @Loggable
 @Entity
 @Table(name = "useremails",
-       uniqueConstraints = {@UniqueConstraint(columnNames = {"userid", "useremail"})})
-public class Useremail extends Auditable
+       uniqueConstraints = {@UniqueConstraint(columnNames = {"uuid", "useremail"})})
+public class UserEmail extends Auditable
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,16 +21,16 @@ public class Useremail extends Auditable
     private String useremail;
 
     @ManyToOne
-    @JoinColumn(name = "userid",
+    @JoinColumn(name = "uuid",
                 nullable = false)
     @JsonIgnoreProperties("useremails")
     private User user;
 
-    public Useremail()
+    public UserEmail()
     {
     }
 
-    public Useremail(User user,
+    public UserEmail(User user,
                      String useremail)
     {
         this.useremail = useremail;

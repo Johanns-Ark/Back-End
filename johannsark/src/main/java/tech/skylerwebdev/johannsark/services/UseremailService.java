@@ -1,22 +1,22 @@
 package tech.skylerwebdev.johannsark.services;
 
-import tech.skylerwebdev.johannsark.models.Useremail;
+import tech.skylerwebdev.johannsark.models.UserEmail;
 
 import java.util.List;
 
 public interface UseremailService
 {
-    List<Useremail> findAll();
+    List<UserEmail> findAll();
 
-    Useremail findUseremailById(long id);
+    UserEmail findUseremailById(long id);
 
-    List<Useremail> findByUserName(String username,
+    List<UserEmail> findByUserName(String username,
                                    boolean isAdmin);
 
     void delete(long id,
                 boolean isAdmin);
 
-    Useremail update(long useremailid,
+    UserEmail update(long useremailid,
                      String emailaddress,
                      boolean isAdmin);
 
