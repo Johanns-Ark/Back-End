@@ -13,16 +13,16 @@ public interface UserService
     List<User> findByNameContaining(String username,
                                     Pageable pageable);
 
-    User findUserById(long id);
+    User findUserById(long uuid);
 
     User findByName(String name);
 
-    void delete(long id);
+    void delete(long uuid);
 
     User save(User user);
 
     User update(User user,
-                long id,
+                long uuid,
                 boolean isAdmin);
 
     void deleteUserRole(long uuid,

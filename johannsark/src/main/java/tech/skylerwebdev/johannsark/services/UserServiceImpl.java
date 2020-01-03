@@ -30,10 +30,10 @@ public class UserServiceImpl implements UserService
     @Autowired
     private RoleRepository rolerepos;
 
-    public User findUserById(long id) throws ResourceNotFoundException
+    public User findUserById(long uuid) throws ResourceNotFoundException
     {
-        return userrepos.findById(id)
-                        .orElseThrow(() -> new ResourceNotFoundException("User id " + id + " not found!"));
+        return userrepos.findById(uuid)
+                        .orElseThrow(() -> new ResourceNotFoundException("User id " + uuid + " not found!"));
     }
 
     @Override
@@ -56,11 +56,11 @@ public class UserServiceImpl implements UserService
 
     @Transactional
     @Override
-    public void delete(long id)
+    public void delete(long uuid)
     {
-        userrepos.findById(id)
-                 .orElseThrow(() -> new ResourceNotFoundException("User id " + id + " not found!"));
-        userrepos.deleteById(id);
+        userrepos.findById(uuid)
+                 .orElseThrow(() -> new ResourceNotFoundException("User uuid " + uuid + " not found!"));
+        userrepos.deleteById(uuid);
     }
 
     @Override
@@ -113,7 +113,7 @@ public class UserServiceImpl implements UserService
     @Transactional
     @Override
     public User update(User user,
-                       long id,
+                       long uuid,
                        boolean isAdmin)
     {
         Authentication authentication = SecurityContextHolder.getContext()
@@ -121,9 +121,9 @@ public class UserServiceImpl implements UserService
 
         User authenticatedUser = userrepos.findByUsername(authentication.getName());
 
-        if (id == authenticatedUser.getUuid() || isAdmin)
+        if (uuid == authenticatedUser.getUuid() || isAdmin)
         {
-            User currentUser = findUserById(id);
+            User currentUser = findUserById(uuid);
 
             if (user.getUsername() != null)
             {
@@ -160,7 +160,7 @@ public class UserServiceImpl implements UserService
             return userrepos.save(currentUser);
         } else
         {
-            throw new ResourceNotFoundException(id + " Not current user");
+            throw new ResourceNotFoundException(uuid + " Not current user");
         }
     }
 
@@ -170,9 +170,9 @@ public class UserServiceImpl implements UserService
                                long roleid)
     {
         userrepos.findById(uuid)
-                 .orElseThrow(() -> new ResourceNotFoundException("User id " + uuid + " not found!"));
+                 .orElseThrow(() -> new ResourceNotFoundException("User uuid " + uuid + " not found!"));
         rolerepos.findById(roleid)
-                 .orElseThrow(() -> new ResourceNotFoundException("Role id " + roleid + " not found!"));
+                 .orElseThrow(() -> new ResourceNotFoundException("Role uuid " + roleid + " not found!"));
 
         if (rolerepos.checkUserRolesCombo(uuid,
                                           roleid)
@@ -192,9 +192,9 @@ public class UserServiceImpl implements UserService
                             long roleid)
     {
         userrepos.findById(uuid)
-                 .orElseThrow(() -> new ResourceNotFoundException("User id " + uuid + " not found!"));
+                 .orElseThrow(() -> new ResourceNotFoundException("User uuid " + uuid + " not found!"));
         rolerepos.findById(roleid)
-                 .orElseThrow(() -> new ResourceNotFoundException("Role id " + roleid + " not found!"));
+                 .orElseThrow(() -> new ResourceNotFoundException("Role uuid " + roleid + " not found!"));
 
         if (rolerepos.checkUserRolesCombo(uuid,
                                           roleid)

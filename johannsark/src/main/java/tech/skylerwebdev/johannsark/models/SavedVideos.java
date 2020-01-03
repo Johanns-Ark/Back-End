@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Loggable
 @Entity
-@Table(name = "savedvideos", uniqueConstraints = {@UniqueConstraint(columnNames = {"uuid", "videoid"})})
+@Table(name = "savedvideos", uniqueConstraints = {@UniqueConstraint(columnNames = {"uuid", "vidid"})})
 public class SavedVideos implements Serializable
 {
 @Id
@@ -20,7 +20,7 @@ private User user;
 
 @Id
   @ManyToOne
-  @JoinColumn(name = "videoid")
+  @JoinColumn(name = "vidid")
   @JsonIgnoreProperties("savedVideos")
   private Video video;
 
