@@ -20,6 +20,14 @@ public class Category {
   @OneToMany(mappedBy = "video", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<VideoCategories> videocategories;
 
+  public Category() {
+  }
+
+  public Category(String name, List<VideoCategories> videocategories) {
+    this.name = name;
+    this.videocategories = videocategories;
+  }
+
   public String getName() {
     return name;
   }
