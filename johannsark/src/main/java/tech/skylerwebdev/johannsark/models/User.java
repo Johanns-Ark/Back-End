@@ -46,6 +46,11 @@ public class User extends Auditable
                orphanRemoval = true)
     @JsonIgnoreProperties("user")
     private List<UserEmail> userEmails = new ArrayList<>();
+    @OneToMany(mappedBy = "user",
+        cascade = CascadeType.ALL,
+        orphanRemoval = true)
+    @JsonIgnoreProperties("user")
+    private List<SavedVideos> savedVideos = new ArrayList<>();
 
     public User()
     {
@@ -54,7 +59,8 @@ public class User extends Auditable
     public User(String username,
                 String password,
                 String primaryemail,
-                List<UserRoles> userRoles)
+                List<UserRoles> userRoles,
+                List<SavedVideos> savedVideos)
     {
         setUsername(username);
         setPassword(password);
@@ -64,6 +70,15 @@ public class User extends Auditable
             ur.setUser(this);
         }
         this.userroles = userRoles;
+        this.savedVideos = savedVideos;
+    }
+
+    public List<SavedVideos> getSavedVideos() {
+        return savedVideos;
+    }
+
+    public void setSavedVideos(List<SavedVideos> savedVideos) {
+        this.savedVideos = savedVideos;
     }
 
     public long getUuid()
@@ -161,8 +176,15 @@ public class User extends Auditable
     }
 
     @Override
-    public String toString()
-    {
-        return "User{" + "uuid=" + uuid + ", username='" + username + '\'' + ", password='" + password + '\'' + ", primaryemail='" + primaryemail + '\'' + '}';
+    public String toString() {
+        return "User{" +
+            "uuid=" + uuid +
+            ", username='" + username + '\'' +
+            ", password='" + password + '\'' +
+            ", primaryemail='" + primaryemail + '\'' +
+            ", userroles=" + userroles +
+            ", userEmails=" + userEmails +
+            ", savedVideos=" + savedVideos +
+            '}';
     }
 }

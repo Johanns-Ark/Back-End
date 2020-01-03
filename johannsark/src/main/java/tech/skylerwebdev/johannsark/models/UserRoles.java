@@ -10,7 +10,7 @@ import java.util.Objects;
 @Loggable
 @Entity
 @Table(name = "userroles",
-       uniqueConstraints = {@UniqueConstraint(columnNames = {"uuid", "roleid"})})
+    uniqueConstraints = {@UniqueConstraint(columnNames = {"uuid", "roleid"})})
 public class UserRoles extends Auditable implements Serializable
 {
     @Id
